@@ -23,3 +23,5 @@ therefore it follows “first in last out” order.
 • *Movie recommendation:* A client can recommend a movie which is “enqueue” in
 recommendations and then after when server checks for recommendations those movies are
 “dequeue”, so it follows “first in first out” order.
+
+![u_q_now](https://user-images.githubusercontent.com/41824020/54448300-643b5f80-4771-11e9-9986-e08acb4c92eb.png)
