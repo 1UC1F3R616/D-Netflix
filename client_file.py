@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import webbrowser
-#import os
+import os
 import server_file
 import start_file
 import time
@@ -22,32 +22,26 @@ def login():
     client_id = input("Give your id: ")
     client_pass = input("Give your pass: ")
 
-    try:
-        client_access = open("clients/"+client_id+'_'+client_pass+'.txt', "r")
-        print("Welcome "+client_id+".\n")
-        client_access.close()
-        return True
-    except:
-        return False
+    for file in os.listdir("clients/"):
+        if file == client_id+'_'+client_pass+'.txt':
+            print("Welcome "+client_id+".\n")
+            return True
+    return False
 
 def signup():
     global client_id
     global client_pass
     client_id = input("Give your id: ")
     client_pass = input("Create a password for id: ")
-    try:
-        exsist = open("clients/"+client_id+'_'+client_pass+'.txt', "r")
-        if exsist:
+    for file in os.listdir("clients/"):
+        if file == client_id+'_'+client_pass+'.txt':
             print("Sorry, this username is already registered.")
             print()
-            exsist.close()
             signup()
-        
-    except:
-        client_sign = open("clients/"+client_id+'_'+client_pass+'.txt', "w")
-        client_sign.close()
-        print("Your database has been created successfully.")
-        print()
+    client_sign = open("clients/"+client_id+'_'+client_pass+'.txt', "w")
+    client_sign.close()
+    print("Your database has been created successfully.")
+    print()
 
 def search():
     m_name = input('Give name of film: ')
@@ -125,14 +119,7 @@ def watch_frequency():
         print(str(Counter(frequent)[x])+'\t\t'+x)
     print()
 
-def thorough_description(c_id="client_id", c_pass="client_pass"):
-    global client_id
-    global client_pass
-    if __name__ == "__main__":
-        pass
-    else:
-        client_id = c_id
-        client_pass = c_pass
+def thorough_description():
     print()
     print("Client id: "+client_id+"\t\t"+"Client Password: "+client_pass+'\t\t'+"DateTime: "+time.ctime())
     print()

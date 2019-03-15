@@ -7,6 +7,7 @@ import datetime as dt
 import client_file
 import os
 from collections import Counter
+import time
 
 global collective
 collective = "collective.txt"
@@ -17,13 +18,11 @@ def login():
     server_id = input("Give server id: ")
     server_pass = input("Give server pass: ")
 
-    try:
-        database = open(server_id+'_'+server_pass+'.txt', "r")
-        print("Database access granted.\n")
-        database.close()
-        return True
-    except:
-        return False
+    for file in os.listdir():
+        if file == server_id+'_'+server_pass+'.txt':
+            print("Database access granted.\n")
+            return True
+    return False
 
 def choice():
     choice = input("\nEnter your choice: ")
@@ -85,6 +84,23 @@ def remove():
             print(title+" is successfully removed.\n")
     database.close()
 
+def client_stats(client_id, client_pass):
+    print()
+    print("Client id: "+client_id+"\t\t"+"Client Password: "+client_pass+'\t\t'+"DateTime: "+time.ctime())
+    print()
+    f = open("clients/"+client_id+'_'+client_pass+'.txt', "r")
+    ff = f.readlines()
+    f.close()
+    print("Total "+str(len(ff))+" films have been watched so far.")
+    text = [x.split('\t') for x in ff]
+    frequent = [x[1].replace('\n', '') for x in text]
+    counter = Counter(frequent).most_common(3)
+    print()
+    print(client_id+" favourate films:")
+    for x in counter:
+        print(x[0])
+    print("\n")
+
 def client_info():
     files = []
     for file in os.listdir("clients/"):
@@ -94,7 +110,7 @@ def client_info():
         client = file.split("_")
         client_id = client[0]
         client_pass = client[1].split('.txt')[0]
-        client_file.thorough_description(client_id, client_pass)
+        client_stats(client_id, client_pass)
 
 def available_movies():
     file = open(server_id+'_'+server_pass+'.txt', "r")
@@ -104,7 +120,7 @@ def available_movies():
     print("Following "+str(len(file_r_text))+" movies we have -->")
     count = 1
     for line in file_r_text:
-        print(str(count)+'.)\t'+line[1]+'\t'+'Genre: '+line[2])
+        print(str(count)+'.)\t'+line[1]+'\t\t'+'Genre: '+line[2])
         count += 1
     print()
     
