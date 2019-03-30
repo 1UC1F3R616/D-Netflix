@@ -22,6 +22,14 @@ recommendations and then after when server checks for recommendations those movi
 “dequeue”, so it follows “first in first out” order.
 </br></br>
 
+##System Architecture
+</br>
+![image](https://user-images.githubusercontent.com/41824020/55275569-16485f00-530e-11e9-844c-aad724bc3f58.png)
+
+</br>
+</br>
+
+
 ## Graphical User Interface
 Click on *d_netflix_gui* to start the program.
 </br>
